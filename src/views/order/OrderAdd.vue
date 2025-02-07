@@ -64,7 +64,7 @@ const { isMobile } = useDisplaySize()
 const order = useOrderStore()
 const product = useProductStore()
 const dataProducts = computed(() => {
-    return product.productList
+    return product.saleProductList
 })
 const dataCartAmount = computed(() => {
     return order.orderCartAmount
@@ -94,7 +94,7 @@ const updateOption = (optionProduct) => {
         optionProduct.selectedSize,
         optionProduct.selectedFlavour
     )
-    product.getProduct()
+    product.getSaleProduct()
 }
 
 const router = useRouter()
@@ -104,7 +104,7 @@ const handleClick = (id) => {
 }
 
 onMounted(() => {
-    product.getProduct()
+    product.getSaleProduct()
     order.getOrderCart()
 })
 

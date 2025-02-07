@@ -20,6 +20,7 @@ export const useProductStore = defineStore('products', {
         },
         productId: '',
         productList: [],
+        saleProductList: [],
         productDetail: [],
         productUnit: [],
     }),
@@ -43,6 +44,14 @@ export const useProductStore = defineStore('products', {
             this.selectedFlavour = flavour
 
             this.getProduct()
+        },
+        updateSaleOptions(group, brand, size, flavour) {
+            this.selectedGroup = group
+            this.selectedBrand = brand
+            this.selectedSize = size
+            this.selectedFlavour = flavour
+
+            this.getSaleProduct()
         },
         async getDataOpion(selectedGroup, selectedBrand, selectedSize, selectedFlavour) {
             try {
@@ -86,6 +95,29 @@ export const useProductStore = defineStore('products', {
                     // }
                 )
                 this.productList = response.data
+                // console.log('product', this.productList)
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async getSaleProduct() {
+            try {
+                //   const token = JSON.parse(localStorage.getItem('token'));
+                const response = await axios.post(
+                    import.meta.env.VITE_API_BASE_URL +
+                    '/cms/saleProduct/getProduct',
+                    {
+                        statusSale: 'Y',
+                        group: this.selectedGroup,
+                        brand: this.selectedBrand,
+                        size: this.selectedSize,
+                        flavour: this.selectedFlavour
+                    }
+                    // {
+                    //   headers: { Authorization: `Bearer ${token}` },
+                    // }
+                )
+                this.saleProductList = response.data
                 // console.log('product', this.productList)
             } catch (error) {
                 console.error(error);

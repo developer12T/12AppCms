@@ -84,7 +84,7 @@ export default {
 
         onMounted(() => {
             store.getProduct()
-            store.getDataOpion();
+            store.getDataOpion()
         });
 
         return {
